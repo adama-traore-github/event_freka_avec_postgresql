@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page d'accueil</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron mt-4">
+      <h1 class="display-4">Bienvenue sur la page d'accueil</h1>
+      <a class="btn btn-primary btn-lg" href="<%= new_event_path %>" role="button">Créer un événement</a>
+    </div>
+
+    <h2>Événements à venir :</h2>
+    <div class="row">
+      <% @events.each do |event| %>
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title"><%= event.title %></h5>
+              <p class="card-text"><%= event.description %></p>
+              <a href="<%= event_path(event) %>" class="btn btn-primary">Voir les détails</a>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</body>
+</html>

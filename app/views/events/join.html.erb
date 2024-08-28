@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rejoindre l'Événement</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="container mt-5">
+      <h1>Rejoindre l'Événement : <%= @event.title %></h1>
+      <p><strong>Description :</strong> <%= @event.description %></p>
+      <p><strong>Prix :</strong> <%= @event.price %> €</p>
+      
+      <%= form_tag create_payment_path(event_id: @event.id), method: :post do %>
+        <input type="hidden" name="amount" value="<%= @event.price %>">
+        <input type="hidden" name="stripeToken" id="stripeToken">
+        <script
+          src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="<%= Rails.application.credentials.dig(:stripe, :publishable_key) %>"
+          data-amount="<%= @event.price * 100 %>"
+          data-name="Rejoindre l'Événement"
+          data-description="<%= @event.title %>"
+          data-currency="eur">
+        </script>
+      <% end %>
+    </div>
+  </body>
+</html>

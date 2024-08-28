@@ -1,0 +1,12 @@
+<h1>Liste des événements</h1>
+
+<% @events.each do |event| %>
+  <div>
+    <h2><%= link_to event.title, event_path(event) %></h2>
+    <p><%= event.description %></p>
+    <p><strong>Date de début :</strong> <%= event.start_date %></p>
+    <p><strong>Lieu :</strong> <%= event.location %></p>
+  </div>
+<% end %>
+
+<%= link_to 'Créer un nouvel événement', new_event_path, class: 'btn btn-primary' %>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Event</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css">
+  <style>
+    .form-buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-4">
+    <h1 class="mb-4">Edit Event</h1>
+
+    <!-- Formulaire pour éditer l'événement, utilisant form_with pour gérer les routes et les méthodes HTTP automatiquement -->
+    <%= form_with model: @event, local: true do |f| %>
+      <!-- Affichage des erreurs de validation s'il y en a -->
+      <% if @event.errors.any? %>
+        <div class="alert alert-danger" role="alert">
+          <h4 class="alert-heading"><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h4>
+          <ul>
+            <% @event.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <!-- Champ pour le titre de l'événement -->
+      <div class="mb-3">
+        <%= f.label :title, class: 'form-label' %>
+        <%= f.text_field :title, class: 'form-control' %>
+      </div>
+
+      <!-- Champ pour la description de l'événement -->
+      <div class="mb-3">
+        <%= f.label :description, class: 'form-label' %>
+        <%= f.text_area :description, rows: 4, class: 'form-control' %>
+      </div>
+
+      <!-- Champ pour la date et l'heure de début de l'événement -->
+      <div class="mb-3">
+        <%= f.label :start_date, class: 'form-label' %>
+        <%= f.datetime_local_field :start_date, class: 'form-control' %>
+      </div>
+
+      <!-- Champ pour la durée de l'événement -->
+      <div class="mb-3">
+        <%= f.label :duration, class: 'form-label' %>
+        <%= f.number_field :duration, class: 'form-control' %>
+      </div>
+
+      <!-- Champ pour le prix de l'événement -->
+      <div class="mb-3">
+        <%= f.label :price, class: 'form-label' %>
+        <%= f.number_field :price, class: 'form-control' %>
+      </div>
+
+      <!-- Champ pour le lieu de l'événement -->
+      <div class="mb-3">
+        <%= f.label :location, class: 'form-label' %>
+        <%= f.text_field :location, class: 'form-control' %>
+      </div>
+
+      <!-- Boutons pour soumettre le formulaire ou revenir à la liste des événements -->
+      <div class="form-buttons mt-4">
+        <a href="<%= events_path %>" class="btn btn-secondary">Back</a> <!-- Lien pour retourner à la liste des événements -->
+        <%= f.submit 'Update Event', class: 'btn btn-primary' %> <!-- Bouton pour soumettre le formulaire -->
+      </div>
+    <% end %>
+
+  </div>
+
+  <!-- Inclusion de Bootstrap JS -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

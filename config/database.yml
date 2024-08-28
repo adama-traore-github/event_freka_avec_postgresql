@@ -1,0 +1,23 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 7000
+  username: postgres
+  password: nostra
+  host: localhost
+
+development:
+  <<: *default
+  database: base_de_donnee_developpement
+
+test:
+  <<: *default
+  database: base_de_donnee_test
+
+production:
+  <<: *default
+  database: base_de_donnee
+  username: postgres
+  password: nostra
+  host: localhost

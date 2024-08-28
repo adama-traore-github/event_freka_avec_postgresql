@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Créer un événement</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="container mt-5">
+      <h1 class="mb-4">Créer un nouvel événement</h1>
+
+      <%= form_with(model: @event, local: true, class: "needs-validation", novalidate: true) do |form| %>
+        <% if @event.errors.any? %>
+          <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading"><%= pluralize(@event.errors.count, "erreur") %> empêchent cet événement d'être enregistré :</h4>
+            <ul class="mb-0">
+              <% @event.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-group">
+          <%= form.label :title, class: "form-label" %>
+          <%= form.text_field :title, class: "form-control", placeholder: "Titre de l'événement" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :description, class: "form-label" %>
+          <%= form.text_area :description, class: "form-control", placeholder: "Description de l'événement", rows: 4 %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :start_date, class: "form-label" %>
+          <%= form.datetime_select :start_date, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :duration, class: "form-label" %>
+          <%= form.number_field :duration, class: "form-control", placeholder: "Durée en minutes" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :price, class: "form-label" %>
+          <%= form.number_field :price, class: "form-control", placeholder: "Prix" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :location, class: "form-label" %>
+          <%= form.text_field :location, class: "form-control", placeholder: "Lieu de l'événement" %>
+        </div>
+
+        <div class="form-group text-right">
+          <%= form.submit "Créer l'événement", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </body>
+</html>

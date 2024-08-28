@@ -1,0 +1,6 @@
+
+
+# Application Web de Gestion d'Événements
+
+
+Cette application web permet aux utilisateurs de gérer des événements en ligne avec une intégration de paiement via Stripe. Les utilisateurs peuvent créer, modifier et consulter des événements, et s'inscrire à ceux-ci. Les événements peuvent être gratuits ou payants : lorsqu'un événement est gratuit, l'inscription est automatique sans paiement ; pour les événements payants, un formulaire de paiement Stripe est fourni. L'application intègre également un panneau d'administration via ActiveAdmin, permettant aux administrateurs de gérer les utilisateurs et les événements de manière centralisée. Utilisant Ruby on Rails pour la gestion des données et des interactions, et Bootstrap pour le style et la réactivité, l'application offre une expérience utilisateur fluide et un contrôle administratif complet. Les fonctionnalités incluent l'inscription automatique pour les événements gratuits, la gestion des participations, des notifications utilisateur pour les inscriptions réussies, et des outils d'administration pour la gestion des contenus.

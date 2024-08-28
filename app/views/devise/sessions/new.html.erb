@@ -1,0 +1,49 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="text-center mb-4">
+        <h2>User Login</h2>
+      </div>
+      <div class="card shadow-lg p-4 border-0">
+        <div class="card-body">
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class="mb-4">
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="fas fa-user"></i>
+                </span>
+                <%= f.email_field :email, class: "form-control", placeholder: "E-mail", autofocus: true, autocomplete: "email" %>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="fas fa-lock"></i>
+                </span>
+                <%= f.password_field :password, class: "form-control", placeholder: "Password", autocomplete: "current-password" %>
+              </div>
+            </div>
+
+            <% if devise_mapping.rememberable? %>
+              <div class="mb-3 d-flex justify-content-between">
+                <div class="form-check">
+                  <%= f.check_box :remember_me, class: "form-check-input" %>
+                  <%= f.label :remember_me, "Remember me", class: "form-check-label" %>
+                </div>
+                <a href="#">Forgot password?</a>
+              </div>
+            <% end %>
+
+            <div class="d-grid gap-2">
+              <%= f.submit "Login", class: "btn btn-primary text-uppercase fw-bold" %>
+            </div>
+          <% end %>
+        </div>
+        <div class="card-footer text-center">
+          <%= render "devise/shared/links" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

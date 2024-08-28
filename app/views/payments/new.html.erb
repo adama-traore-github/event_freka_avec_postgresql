@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paiement Stripe pour <%= @event.title %></title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-4">
+    <h1>Paiement pour <%= @event.title %></h1>
+
+    <!-- Affichage du prix de l'événement -->
+    <div>
+      <h2>Prix : <span id="event-price"><%= @event.price %>$</span></h2>
+    </div>
+
+    <!-- Formulaire Stripe -->
+    <form action="/create_payment" method="POST">
+      <input type="hidden" name="amount" id="amount" value="<%= (@event.price * 100).to_i %>"> <!-- Montant en cents -->
+      <input type="hidden" name="event_id" value="<%= @event.id %>">
+      <script
+        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+        data-key="<%= Rails.application.credentials.dig(:stripe, :publishable_key) %>"
+        data-amount="<%= (@event.price * 100).to_i %>"
+        data-name="Paiement pour <%= @event.title %>"
+        data-description="Paiement sécurisé pour l'événement <%= @event.title %>"
+        data-currency="usd">
+      </script>
+    </form>
+  </div>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

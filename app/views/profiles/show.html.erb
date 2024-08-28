@@ -1,0 +1,15 @@
+<h1>Profil de <%= @user.first_name %> <%= @user.last_name %></h1>
+
+<p><strong>Description:</strong> <%= @user.description %></p>
+<p><strong>Email:</strong> <%= @user.email %></p>
+
+<h2>Mes Événements</h2>
+<ul>
+  <% @events.each do |event| %>
+    <li>
+      <%= link_to event.title, event_path(event) %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to 'Modifier mon email et mot de passe', edit_registration_path(:user) %>

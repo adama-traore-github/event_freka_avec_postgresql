@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Événement Détails</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= csrf_meta_tags %> <!-- Tags de sécurité pour la protection CSRF -->
+    <%= csp_meta_tag %> <!-- Tag de sécurité pour Content Security Policy -->
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %> <!-- Lien vers les feuilles de style CSS -->
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %> <!-- Lien vers les fichiers JavaScript -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> <!-- Lien vers Bootstrap pour le style -->
+  </head>
+
+  <body>
+    <div class="container mt-5">
+      <!-- Affichage des détails de l'événement -->
+      <p><strong>Titre :</strong> <%= @event.title %></p>
+      <p><strong>Description :</strong> <%= @event.description %></p>
+      <p><strong>Nombre d'inscrits :</strong> <%= @event.attendances.count %></p>
+      <p><strong>Créateur :</strong> <%= @event.user.email %></p>
+      <p><strong>Date de début :</strong> <%= @event.start_date.strftime('%d/%m/%Y %H:%M') %></p>
+      <p><strong>Date de fin :</strong> <%= @event.end_date.strftime('%d/%m/%Y %H:%M') %></p>
+      <p><strong>Lieu :</strong> <%= @event.location %></p>
+      <p><strong>Prix :</strong> <%= @event.price %> $</p>
+
+      <!-- Lien pour retourner à la page de profil -->
+      <%= link_to 'Retour', profile_path, class: 'btn btn-secondary' %>
+
+      <!-- Lien pour modifier l'événement -->
+      <a href="<%= edit_event_path(@event) %>" class="btn btn-primary">Modifier l'événement</a>
+
+      <!-- Lien pour rejoindre l'événement -->
+      <% if @event.price > 0 %>
+        <%= link_to 'Rejoindre cet événement', new_payment_path(amount: @event.price, event_id: @event.id), class: 'btn btn-success' %>
+      <% else %>
+        <%= link_to 'Rejoindre cet événement', join_event_path(@event), class: 'btn btn-success' %>
+      <% end %>
+    </div>
+  </body>
+</html>
