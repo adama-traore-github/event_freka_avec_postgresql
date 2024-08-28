@@ -1,128 +1,21 @@
-# Ouvrir la console Rails
-rails console
-
-rails db:drop
-rails db:create
-rails db:migrate
+psql -U postgres
 
 
-
-# Vérifiez les permissions du fichier
-ls -l db/development.sqlite3
-
-# Changez les permissions pour permettre l'écriture
-chmod 664 db/development.sqlite3
-
-  
-
-  
-
-
-
-afficher les utilisateurs 
-User.all
-Event.all
-Attendance.all
-User.create(email: 'test@example.com', password: 'password123')
-
-rouver l'utilisateur
-# La commande suivante trouve un utilisateur dans la base de données par son adresse e-mail.
-# Remplacez 'email_de_l_utilisateur@example.com' par l'adresse e-mail de l'utilisateur que vous souhaitez confirmer.
-user = User.find_by(email: 'email_de_l_utilisateur@example.com')
-
-# Confirmer l'utilisateur
-# Cette ligne efface le token de confirmation de l'utilisateur, indiquant qu'il n'a plus besoin de confirmer son adresse e-mail.
-user.confirmation_token = nil
-
-# Cette ligne définit l'attribut `confirmed_at` à l'heure actuelle, marquant l'utilisateur comme confirmé.
-user.confirmed_at = Time.now
-
-# Cette ligne définit l'attribut `confirmation_sent_at` à l'heure actuelle, enregistrant le moment où la confirmation a été envoyée.
-user.confirmation_sent_at = Time.now
-
-
-# Cette ligne enregistre les modifications dans la base de données.
-user.save!
-
-installation de maildev
-
-npm install -g maildev
-
-pour lancer
-
-maildev
-
-rails generate mailer UserMailer welcome_email
-
-
-
-devise
-
-rails generate devise:install
-rails generate devise User
-rails generate devise:views
-rails db:migrate
-
-
-
-coter admin
-
-rails generate active_admin:install
-rails db:migrate
-
-
-
-
-rails generate migration AddRoleToUsers role:string
-rails db:migrate
- modele user
-  def admin?
-    self.role == 'admin'
-  end
-  
-  user = User.find_by(email: 'example@example.com') # Remplacez par l'email ou l'identifiant approprié
-user.update(role: 'admin')
-
-
-
-
-
-ou role
-rails generate migration AddRoleToUsers role:string
-rails db:migrate
-
-
-psql -U postgres -W
-
+#Réinitialiser la base de données 
 rails db:drop
 rails db:create
 rails db:migrate
 rails db:seed
 
-
-
-
-
-
-rails db:drop
-rails db:create
-rails db:migrate
-rails db:seed
-
-
-# Ouvrez la console Rails
+#Ouvrir la console Rails 
 rails console
+
+#Ensuite, consulte les données existantes 
 User.all
 Event.all
 Attendance.all
 
-# Créez un nouvel utilisateur admin
-AdminUser.create!(
-  email: 'newadmin@example.com',
-  password: 'secure_password',
-  password_confirmation: 'secure_password'
-)
-
+#Créer un nouvel utilisateur admin : Assure-toi de définir le rôle avant de créer l'utilisateur administrateur, car cela influence l'affichage du bouton admin dans la barre de navigation. Crée l'utilisateur admin en utilisant
 user = User.find_by(email: 'a@gmail.com')
 user.update(role: 'admin')
 
@@ -138,37 +31,4 @@ AdminUser.create!(
   password_confirmation: 'aaaaaa'
 )
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-Créez un fichier d'initialisation pour Stripe dans config/initializers/stripe.rb et ajoutez vos clés API Stripe : Stripe.api_key = Rails.application.credentials.stripe[:secret_key]
-
-EDITOR="nano" bin/rails credentials:edit
-
-stripe:
-  public_key: 'pk_test_XXXXXXXXXXXXXXXXXXXXXXXX'
-  secret_key: 'sk_test_XXXXXXXXXXXXXXXXXXXXXXXX'
-
-ensuite on genere le controllers payement avec les vues associers
-
-rails generate controller Payments new create
-
-
-
-
-
-
-
-
-
-
+Note que la création d’un admin permet l'accès au tableau de bord admin, mais si le rôle n'est pas défini correctement avant, le bouton admin dans la barre de navigation ne sera pas visible, même si l'admin est créé.
